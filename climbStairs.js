@@ -96,12 +96,12 @@ As our function name is climbStairs, so we can make the formaula using that:
 climbStairs(n) = climbStairs(n-1) + climbStairs(n-2)
  */
 var climbStairs = function (n) {
-  if (n <= 2) return n;
+  if (n <= 3) return n;
 
-  return climbStairs(n - 1) + climbStairs(n - 2);
+  return 2 * climbStairs(n - 2) + climbStairs(n - 3);
 };
 
-const n = 3;
+const n = 45;
 const result = climbStairs(n);
 
 console.log({ result });
