@@ -7,34 +7,22 @@
  * All letters in this word are not capitals, like "leetcode".
  * Only the first letter in this word is capital, like "Google".
  */
-var detectCapitalUse = function (word) {
-  let capitalLength = 0,
-    notCapitalLength = 0,
-    onlyFirstCapitalLength = 0;
 
-  for (let i = 0; i < word.length; i++) {
-    const letter = word[i];
-    if (letter === letter.toUpperCase()) {
-      capitalLength++;
-    }
-    if (letter === letter.toLowerCase()) {
-      notCapitalLength++;
-    }
-    if (i === 0 && letter.toUpperCase() === letter) {
-      onlyFirstCapitalLength = 1;
-    } else if (i !== 0 && letter === letter.toUpperCase()) {
-      onlyFirstCapitalLength = 0;
-    }
-  }
+const detectCapitalUse = function (word) {
+  const isUpperCase = (char) => char === char.toUpperCase();
 
-  if (
-    capitalLength === word.length ||
-    notCapitalLength === word.length ||
-    onlyFirstCapitalLength === 1
-  )
+  if (word.toUpperCase() === word) {
     return true;
-
-  return false;
+  } else if (word.toLowerCase() === word) {
+    return true;
+  } else if (
+    isUpperCase(word[0]) &&
+    word.slice(1).toLowerCase() === word.slice(1)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 console.log(detectCapitalUse((word = "ffffffffffffffffffffF")));
