@@ -5,7 +5,22 @@
  */
 // [easy][string] 748. Shortest Completing Word
 
-var shortestCompletingWord = function (licensePlate, words) {
+const isValidWord = (word, hasmap) => {
+  const wordMap = {};
+  for (const letter of word) {
+    wordMap[letter] = (wordMap[letter] || 0) + 1;
+  }
+
+  for (const [key, value] of Object.entries(hasmap)) {
+    if (!wordMap[key] || wordMap[key] < value) {
+      return false;
+    }
+  }
+  return true;
+};
+
+/** Solution 1 */
+var shortestCompletingWord1 = function (licensePlate, words) {
   const liscenMap = {};
   licensePlate = licensePlate.toLowerCase();
 
@@ -68,30 +83,56 @@ var shortestCompletingWord = function (licensePlate, words) {
   return shortest_word;
 };
 
+/** Solution 2 */
+var shortestCompletingWord2 = function (licensePlate, words) {
+  const liscenMap = {};
+  licensePlate = licensePlate.toLowerCase();
+
+  for (let ele of licensePlate) {
+    if (/^[a-z]$/.test(ele)) {
+      liscenMap[ele] = (liscenMap[ele] || 0) + 1;
+    }
+  }
+
+  const validWords = words.filter((word) =>
+    isValidWord(word, { ...liscenMap })
+  );
+
+  let shortestWord = validWords[0];
+  for (let i = 1; i < validWords.length; i++) {
+    const word = validWords[i];
+    if (shortestWord.length > word.length) {
+      shortestWord = word;
+    }
+  }
+
+  return shortestWord;
+};
+
 console.log(
-  shortestCompletingWord("GrC8950", [
-    // "measure",
-    // "other",
-    // "every",
-    // "base",
+  shortestCompletingWord2("GrC8950", [
+    "measure",
+    "other",
+    "every",
+    "base",
     "according",
-    // "level",
-    // "meeting",
-    // "none",
-    // "marriage",
-    // "rest",
+    "level",
+    "meeting",
+    "none",
+    "marriage",
+    "rest",
   ])
 );
 
-// console.log(
-//   shortestCompletingWord(
-//     (licensePlate = "1s3 PSt"),
-//     (words = ["step", "steps", "stripe", "stepple"])
-//   )
-// );
-// console.log(
-//   shortestCompletingWord(
-//     (licensePlate = "1s3 456"),
-//     (words = ["looks", "pest", "stew", "show"])
-//   )
-// );
+console.log(
+  shortestCompletingWord2(
+    (licensePlate = "1s3 PSt"),
+    (words = ["step", "steps", "stripe", "stepple"])
+  )
+);
+console.log(
+  shortestCompletingWord2(
+    (licensePlate = "1s3 456"),
+    (words = ["looks", "pest", "stew", "show"])
+  )
+);
