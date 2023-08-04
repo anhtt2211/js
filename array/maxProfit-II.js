@@ -22,5 +22,5 @@ var maxProfit = function (prices) {
 };
 
 console.log(maxProfit((prices = [7, 1, 5, 3, 4, 9, 6, 4])));
-// console.log(maxProfit((prices = [7, 6, 4, 3, 1])));
-// console.log(maxProfit((prices = [1, 2, 3, 4, 5])));
+console.log(maxProfit((prices = [7, 6, 4, 3, 1])));
+console.log(maxProfit((prices = [1, 2, 3, 4, 5])));
