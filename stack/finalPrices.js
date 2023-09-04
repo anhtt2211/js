@@ -5,25 +5,19 @@
 // [easy][stack] 1475. Final Prices With a Special Discount in a Shop
 
 var finalPrices = function (prices) {
-  const result = [];
   const stack = [];
-  const lessMap = new Map();
 
   for (let i = 0; i < prices.length; i++) {
     const price = prices[i];
 
-    while (stack.length && price <= stack[stack.length - 1][0]) {
-      lessMap.set(stack.pop()[1], price);
+    while (stack.length && price <= prices[stack[stack.length - 1]]) {
+      const index = stack.pop();
+      prices[index] = prices[index] - price;
     }
-    stack.push([price, i]);
+    stack.push(i);
   }
 
-  for (let i = 0; i < prices.length; i++) {
-    const finalPrice = prices[i] - (lessMap.get(i) || 0);
-    result.push(finalPrice);
-  }
-
-  return result;
+  return prices;
 };
 
 console.log(finalPrices((prices = [8, 4, 6, 2, 3])));
