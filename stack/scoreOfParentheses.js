@@ -34,8 +34,25 @@ var scoreOfParentheses = function (s) {
   return currentScore;
 };
 
+var scoreOfParentheses2 = function (s) {
+  const stack = [];
+  let count = 0;
+
+  for (const char of s) {
+    if (char === "(") {
+      stack.push(count);
+      count = 0; // Reset the count for the inner parentheses
+    } else {
+      const innerCount = stack.pop();
+      count = innerCount + Math.max(2 * count, 1);
+    }
+  }
+
+  return count;
+};
+
 // "(()(()))"
-console.log(scoreOfParentheses("(()(()))"));
+console.log(scoreOfParentheses2("(()(()))"));
 /**
  * count = 0;
  * 0: => stack = ["("]
@@ -45,13 +62,13 @@ console.log(scoreOfParentheses("(()(()))"));
  * 4: => stack = ["(", "(", "("]
  */
 
-console.log(scoreOfParentheses((string = "()")));
+console.log(scoreOfParentheses2((string = "()")));
 /**
  * count = 0;
  * 0: char = ( => stack.push(char) => stack = ["("]
  * 1: char = ) => stack.pop() === ( => count++ => stack = []
  */
-console.log(scoreOfParentheses((string = "(())")));
+console.log(scoreOfParentheses2((string = "(())")));
 /**
  * count = 0;
  * 0: char = "(" => stack.push(char) => stack = ["("]
@@ -60,4 +77,4 @@ console.log(scoreOfParentheses((string = "(())")));
  * 3: char = ")" => stack.pop() === "(" => count++ => stack = []
  * return count
  */
-console.log(scoreOfParentheses((string = "()()")));
+console.log(scoreOfParentheses2((string = "()()")));
