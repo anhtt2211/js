@@ -3,7 +3,7 @@
  * @param {number} target
  * @return {number}
  */
-// [medium][two-pointers] 33. Search in Rotated Sorted Array
+// [medium][binary-search] 33. Search in Rotated Sorted Array
 
 var search = function (nums, target) {
   let left = 0,
